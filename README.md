@@ -18,6 +18,8 @@ During 7 days in this challenge carried by out Alura, I developed a project with
 * [HTML](https://developer.mozilla.org/pt-BR/docs/Web/HTML)
 
 * [CSS](https://developer.mozilla.org/pt-BR/docs/Web/CSS)
+
+* [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
 ## 🚀 Learnings 
 
 
@@ -25,3 +27,6 @@ During 7 days in this challenge carried by out Alura, I developed a project with
 
 On the first day of this challenge, I created a static website with static data using only HTML and CSS. In CSS I used concepts of Flexbox to create the layout of the project and position the elements.
 
+### Day 02
+
+On the second day of the challenge, I added a script containing JavaScript code for DOM to have dynamism to show the list of movies. To display in the same way as day one, I created a array  with all information about the movies. Using forEach, was possible to call a function to receive a variable movie,and create an element on DOM.
