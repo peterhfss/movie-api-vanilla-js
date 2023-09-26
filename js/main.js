@@ -1,40 +1,28 @@
+import { apiKey } from "../env/key.js"
+
+async function getPopularMovies(){
+    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`
+    const response = await fetch(url)
+    const { results} = await response.json()
+
+    return results
+}
+
 const moviesContainer = document.querySelector('.movies');
 
-const movies  = [
-    {
-        title: 'Avengers Endgame',
-        year: 2019,
-        rating: "8.4/10",
-        isFavorite: true,
-        description: "Following the devastating events of Avengers: Infinity War (2018), the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of their remaining allies, the Avengers must assemble once again to undo Thanos' actions and undo the chaos in the universe, no matter what consequences may lie in store, and no matter who they face.",
-        image: './assets/Avengers_Endgame.jpeg'
-    },
-    {
-        title: 'Avengers Endgame',
-        year: 2019,
-        rating: "8.4/10",
-        isFavorite: true,
-        description: "Following the devastating events of Avengers: Infinity War (2018), the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of their remaining allies, the Avengers must assemble once again to undo Thanos' actions and undo the chaos in the universe, no matter what consequences may lie in store, and no matter who they face.",
-        image: './assets/Avengers_Endgame.jpeg'
-    },
-    {
-        title: 'Avengers Endgame',
-        year: 2019,
-        rating: "8.4/10",
-        isFavorite: true,
-        description: "Following the devastating events of Avengers: Infinity War (2018), the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of their remaining allies, the Avengers must assemble once again to undo Thanos' actions and undo the chaos in the universe, no matter what consequences may lie in store, and no matter who they face.",
-        image: './assets/Avengers_Endgame.jpeg'
-    },
-
-]
-
-window.onload = function(){
-    movies.forEach(movie => renderMovie(movie))
+window.onload = async function(){
+    const movies = await getPopularMovies()
+    console.log(movies)
+   movies.forEach(movie => renderMovie(movie))
 }
 
 function renderMovie(movie){
 
-    const {title, year, rating, isFavorite, image, description } = movie;
+    const {title, release_date , poster_path , vote_average , overview} = movie;
+    const isFavorite = false
+
+    const image = `https://image.tmdb.org/t/p/w500${poster_path}`
+    const year = new Date(release_date).getFullYear()
 
     const movieElement = document.createElement('div')
     movieElement.classList.add('movie')
@@ -71,7 +59,7 @@ function renderMovie(movie){
     startImage.src = './assets/Star.svg'
     startImage.alt = 'Start'
     const movieRate = document.createElement('span')
-    movieRate.textContent = rating
+    movieRate.textContent = vote_average
     ratingContainer.appendChild(startImage)
     ratingContainer.appendChild(movieRate)
     movieInformations.appendChild(ratingContainer)
@@ -79,7 +67,7 @@ function renderMovie(movie){
     const favoriteContainer = document.createElement('div')
     favoriteContainer.classList.add('favorites')
     const heartImage = document.createElement('img')
-    heartImage.src = isFavorite ? './assets/Heart.svg': './assets/Vector.svg'
+    heartImage.src = isFavorite ? './assets/Vector.svg': './assets/Heart.svg'
     heartImage.alt = 'Heart'
     const movieFavorites = document.createElement('span')
     movieFavorites.textContent = 'Favorite'
@@ -90,7 +78,7 @@ function renderMovie(movie){
     const movieDescriptionContainer = document.createElement('div')
     movieDescriptionContainer.classList.add('movie-description')
     const movieDescription = document.createElement('span')
-    movieDescription.textContent = description
+    movieDescription.textContent = overview
     movieDescriptionContainer.appendChild(movieDescription)
 
     movieElement.appendChild(movieDetails)
