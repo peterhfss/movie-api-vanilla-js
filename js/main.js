@@ -1,14 +1,45 @@
 import { apiKey } from "../env/key.js"
 
+const moviesContainer = document.querySelector('.movies');
+const inputSearch  = document.querySelector('.inputSearch');
+const searchIcon = document.querySelector('.searchIcon');
+
+
+inputSearch.addEventListener('keyup' , function(event){
+    if(event.keyCode == 13){
+     searchMovie()
+     return
+    }
+ })
+
+searchIcon.addEventListener('click', searchMovie)
+
 async function getPopularMovies(){
-    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`
+    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR&page=1`
     const response = await fetch(url)
     const { results} = await response.json()
-
     return results
 }
 
-const moviesContainer = document.querySelector('.movies');
+async function searchMovieByTitle(title){
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${title}&language=pt-BR&page=1`
+    const fetchResponse = await fetch(url)
+    const { results } = await fetchResponse.json()
+    return results
+}
+
+async function searchMovie(){
+    const nameMovie = inputSearch.value;
+    if(nameMovie != ''){
+        resetSearchMovies();
+        const movies = await searchMovieByTitle(nameMovie);
+        movies.forEach((movie) => renderMovie(movie))
+    }
+}
+
+function resetSearchMovies(){
+    moviesContainer.innerHTML = '';
+}
 
 window.onload = async function(){
     const movies = await getPopularMovies()

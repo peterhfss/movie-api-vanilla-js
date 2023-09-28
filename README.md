@@ -30,3 +30,11 @@ On the first day of this challenge, I created a static website with static data 
 ### Day 02
 
 On the second day of the challenge, I added a script containing JavaScript code for DOM to have dynamism to show the list of movies. To display in the same way as day one, I created a array  with all information about the movies. Using forEach, was possible to call a function to receive a variable movie,and create an element on DOM.
+
+### Day 03
+
+Already on the third day of the challenge, I consumed data from the API of The Movie Database. Also, I learning more about events, fetch, and promise on JavaScript.
+
+### Day 04
+
+On the fourth day, I learned how to get data from the user input and search for movies that data. 
